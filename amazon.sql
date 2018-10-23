@@ -21,14 +21,15 @@ VALUES ("", "", 10.98, 63);
 
 
 ////////////////////////////////////////////////////////////// SUPERVISOR VIEW \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
 USE bamazon;
 
 CREATE TABLE departments(
     department_id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     department_name VARCHAR(50) NOT NULL,
-    over_head_costs INT(65) NOT NULL
-)
+    over_head_costs INT(65) NOT NULL,
+    product_sales INT(65),
+    total_profits INT(65)
+);
 
 INSERT INTO bamazon.departments(department_name, over_head_costs)
 VALUES("books", 870),

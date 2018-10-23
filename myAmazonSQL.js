@@ -12,12 +12,13 @@ var connection = mysql.createConnection({
 connection.connect(function(err){
     console.log("connected as id: " + connection.threadId);
     // connection checked and is working 10.22.18
+    // readProducts(() => { welcomePurchase()});
     readProducts();
-    welcomePurchase();
-})
+    });
 
 ////////////////////////////////////////////// inquirer: product id and then quanity purchased \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     function welcomePurchase(){
+
         inquirer.prompt([{
             name: "item",
             type: "input",
@@ -76,6 +77,7 @@ function readProducts() {
     }; // ENDS for loop
 
     console.log("\n" + table.toString());
+    welcomePurchase();
 
     }); // ENDS response
   }; // ENDS readProducts()
