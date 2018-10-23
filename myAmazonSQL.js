@@ -35,14 +35,14 @@ connection.connect(function(err){
                 if (!res){
                     console.log("Oops! It looks like you did not select a valid product. Please select an item listen by typing in the corresponding Item ID")
                 }
-               
+                console.log("item id: ", customerSelect.item);
                 console.log("updated stock: ", (res[0].stock_quantity - customerSelect.amount));
                     connection.query("UPDATE products SET ? WHERE ?", [
                         {
-                            stock_quantity: 1
+                            stock_quantity: (res[0].stock_quantity - customerSelect.amount)
                         },
                         {
-                            item_id: customerSelect.item_id
+                            item_id: customerSelect.item
                         }
                     ], function(err, res) {
                         console.log(res.affectedRows + " products updated!\n");
