@@ -14,7 +14,6 @@ connection.connect(function(err){
     // connection checked and is working 10.22.18
     readProducts();
     welcomePurchase();
-    // connection.end();
 })
 
 ////////////////////////////////////////////// inquirer: product id and then quanity purchased \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -29,14 +28,18 @@ connection.connect(function(err){
             type: "input",
             message: "How many would do you wish to purchase?"   
         }]).then(function (customerSelect){
-            console.log("customer select: ", customerSelect);
+            // connect to database based on customer item and quantity selection
             query = connection.query ("SELECT * FROM products WHERE item_id=?", customerSelect.item, function (err, res){
                 if (err) throw err;
-                if (!res){
-                    console.log("Oops! It looks like you did not select a valid product. Please select an item listen by typing in the corresponding Item ID")
+                console.log("affected rows: ", res.length)
+                if(customerSelect.item > 10){
+                    console.log("It looks like that product does not exist, please select a valid product number.")
                 }
-                console.log("item id: ", customerSelect.item);
-                console.log("updated stock: ", (res[0].stock_quantity - customerSelect.amount));
+                if (!res){
+                    console.log("Oops! It looks like you did not select a product. Please select an item listen by typing in the corresponding Item ID")
+                }
+
+/////////////////////////////////////////////// Update table after purchase and print \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                     connection.query("UPDATE products SET ? WHERE ?", [
                         {
                             stock_quantity: (res[0].stock_quantity - customerSelect.amount)
@@ -46,14 +49,13 @@ connection.connect(function(err){
                         }
                     ], function(err, res) {
                         console.log(res.affectedRows + " products updated!\n");
+                        readProducts();
                     }); 
                 
             });
         });
-        // readProducts();
 
     };
-
 ////////////////////////////////////////////////// Prints store inventory table \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 function readProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
