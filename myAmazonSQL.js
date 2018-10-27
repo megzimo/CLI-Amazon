@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err){
     // console.log("connected as id: " + connection.threadId);
-    console.log("\n |-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~- Welcome to Bamazon! -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-| \n");
+    console.log("\n |-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~- Welcome to Bamazon! -~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-| ");
     readProducts();
     });
 
@@ -21,12 +21,28 @@ connection.connect(function(err){
         inquirer.prompt([{
             name: "item",
             type: "input",
-            message: "What item would you like to purchase?",
+            message: "What item would you like to purchase? Enter the Item ID to continue",
+            validate: function(input){
+                if(isNaN(input) === false){
+                    return true;
+                } else {
+                    console.log("Invalid Item ID. Please try again.")
+                    return false;
+                }
+            }
         },
         {
             name: "amount",
             type: "input",
-            message: "How many would do you wish to purchase?"   
+            message: "How many would do you wish to purchase?",
+            validate: function(input){
+                if(isNaN(input) === false){
+                    return true;
+                } else {
+                    console.log("Invalid quantity. Please try again.")
+                    return false;
+                }
+            }   
         }]).then(function (customerSelect){
             
             // connect to database based on customer item and quantity selection
@@ -35,6 +51,10 @@ connection.connect(function(err){
                 // console.log("affected rows: ", res.length)
                 if(customerSelect.item > 10){
                     console.log("It looks like that product does not exist, please select a valid product number.")
+                }
+                if(customerSelect.amount > res.stock_quantity){
+                    console.log("Insufficient quantity! Please input a value less than or equal to the quantity available in stock");
+                    return;
                 }
                 if (!res){
                     console.log("Oops! It looks like you did not select a product. Please select an item listen by typing in the corresponding Item ID")
@@ -49,7 +69,7 @@ connection.connect(function(err){
                         item_id: customerSelect.item
                     }
                 ], function(err, res) {
-                    if(customerSelect.amount == 0){
+                        if(customerSelect.amount == 0){
                         console.log("\n \t Oops, you did not provide a valid number to purchase! \n");
                         welcomePurchase();
                     } else {
@@ -69,14 +89,14 @@ function readProducts() {
         
         // instantiate
         var table = new Table({
-            head: ['Item ID', 'Product Name', 'Department', 'Price', 'Quantity']
-        , colWidths: [10, 20, 20, 20, 20]
+            head: ['Item ID', 'Product Name', 'Price']
+        , colWidths: [10, 20, 20]
         });
       
         // loop through the response and print out each row into the table
         for (var i = 0; i < res.length; i++) {   
         table.push(
-            [res[i].item_id, res[i].product_name, res[i].department_name, `$`+res[i].price, res[i].stock_quantity]
+            [res[i].item_id, res[i].product_name, `$`+res[i].price]
         );
     }; // ENDS for loop
 
@@ -91,7 +111,7 @@ function nextPrompt(){
     inquirer.prompt({
         name: "next",
         type: "list",
-        message: "\t What else would you like to do?",
+        message: "\n \t What else would you like to do?",
         choices: ["\t \t Make another purchase", "\t \t Exit"]
     }).then(function(answer){
         switch(answer.next){

@@ -14,11 +14,23 @@ CREATE TABLE products (
 );
 
 INSERT INTO bamazon.products (product_name, department_name, price, stock_quantity)
-VALUES ("", "", 10.98, 63);
+VALUES ("1984", "books", 10.98, 63),
+        ("Thermos", "kitchen", 10.50, 78),
+        ("Ottoman", "furniture", 120.50, 90),
+        ("Moonrise Kingdom", "movies", 15.99, 39),
+        ("Yarm", "crafts", 5.99, 105),
+        ("Headphones", "technology", 35.00, 28),
+        ("Yoga Mat", "sports", 29.90, 170),
+        ("Quilt - Queen", "home", 85.29, 70),
+        ("Coffee Maker", "appliances", 15.99, 110),
+        ("2019 Calendar", "home", 11.97, 56)
+        ;
 
 
 
 ////////////////////////////////////////////////////////////// SUPERVISOR VIEW \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+DROP DATABASE IF EXISTS bamazon
+
 USE bamazon;
 
 CREATE TABLE departments(

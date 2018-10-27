@@ -13,7 +13,7 @@ Below you will find detailed instructions on how to run each version of the CLI-
 4. Finally, the table will be reprinted to the terminal with updated stock amounts, and you will be prompted again to choose an item to purchase.
 
 ### Manager View
-1. When you run myAmazonSQL, the application will first prompt you to select a task to complete by using the arrows to scroll up and down the list. Tasks include: 
+1. When you run managerView, the application will prompt you to select a task to complete by using the arrows to scroll up and down the list. Tasks include: 
     * View Products for Sale
     * View Low Inventory
     * Add to Inventory
@@ -22,9 +22,9 @@ Below you will find detailed instructions on how to run each version of the CLI-
 3. Once you have gone through the task, you will be prompted to `View Main Menu` or `Exit`. You can keep going through each task as many times as you like until you are ready to exit the program.
 
 ### Supervisor View
-1. 
-2. 
-3. 
+1. When you run supervisorView, the application will prompt you to select a task to complete by using the arrows to scroll up and down the list. Tasks include: 
+    * View Product Sales by Department
+    * Create New Department
 
 
 ## Packages Utilized
