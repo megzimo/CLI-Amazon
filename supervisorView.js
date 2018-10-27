@@ -21,7 +21,7 @@ connection.connect(function(err){
   function viewChoice(){
     inquirer.prompt([{
         name: "view",
-        type: "rawlist",
+        type: "list",
         message: "Welcome Supervisor! What would you like to do?",
         choices: ["View Product Sales by Department", "Create New Department", "Quit"]  
     }]).then(function (answer){
@@ -77,6 +77,8 @@ connection.connect(function(err){
 // console.log("\n" + table.toString());
 
 // })
+// viewChoice();
+
 // }; // ENDS supervisorView()
 
 

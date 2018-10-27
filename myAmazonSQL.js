@@ -49,9 +49,6 @@ connection.connect(function(err){
             query = connection.query ("SELECT * FROM products WHERE item_id=?", customerSelect.item, function (err, res){
                 if (err) throw err;
                 // console.log("affected rows: ", res.length)
-                if(customerSelect.item > 10){
-                    console.log("It looks like that product does not exist, please select a valid product number.")
-                }
                 if(customerSelect.amount > res.stock_quantity){
                     console.log("Insufficient quantity! Please input a value less than or equal to the quantity available in stock");
                     return;
